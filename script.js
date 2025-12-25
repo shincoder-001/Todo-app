@@ -1,42 +1,35 @@
+let taskList = document.getElementById("taskList");
+
+window.onload = function () {
+    let savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    savedTasks.forEach(task => addTaskToList(task.text, task.completed));
+};
+
 function addTask() {
     let input = document.getElementById("taskInput");
-    let task = input.value;
+    let taskText = input.value;
 
-    if (task === "") {
+    if (taskText === "") {
         alert("Please enter a task");
         return;
     }
 
-    let li = document.createElement("li");
-    li.textContent = task;
-    let deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "❌";
-
-    deleteBtn.onclick = function () {
-        li.remove();
-    };
-
-    li.appendChild(deleteBtn);
-
-    let list = document.getElementById("taskList");
-    list.appendChild(li);
-
+    addTaskToList(taskText, false);
+    saveTasks();
     input.value = "";
 }
-function addTask() {
-    let input = document.getElementById("taskInput");
-    let task = input.value;
 
-    if (task === "") {
-        alert("Please enter a task");
-        return;
-    }
-
+function addTaskToList(text, completed) {
     let li = document.createElement("li");
-    li.textContent = task;
+    li.textContent = text;
+
+    if (completed) {
+        li.classList.add("completed");
+    }
 
     li.onclick = function () {
         li.classList.toggle("completed");
+        saveTasks();
     };
 
     let deleteBtn = document.createElement("button");
@@ -45,12 +38,20 @@ function addTask() {
     deleteBtn.onclick = function (event) {
         event.stopPropagation();
         li.remove();
+        saveTasks();
     };
 
     li.appendChild(deleteBtn);
+    taskList.appendChild(li);
+}
 
-    let list = document.getElementById("taskList");
-    list.appendChild(li);
-
-    input.value = "";
+function saveTasks() {
+    let tasks = [];
+    document.querySelectorAll("#taskList li").forEach(li => {
+        tasks.push({
+            text: li.firstChild.textContent,
+            completed: li.classList.contains("completed")
+        });
+    });
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 }
