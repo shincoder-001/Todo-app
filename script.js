@@ -55,3 +55,8 @@ function saveTasks() {
     });
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
+document.getElementById("taskInput").addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        addTask();
+    }
+});
