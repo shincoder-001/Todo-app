@@ -36,4 +36,4 @@ This project was created as a beginner-friendly project to practice core web dev
 ---
 
 ## 🔗 Live Demo
-_Will be added after deployment_
+[Live](https://shincoder-001.github.io/Todo-app/)
