@@ -6,7 +6,7 @@ This project was created as a beginner-friendly project to practice core web dev
 
 ---
 
-## 🚀 Features
+##  Features
 - ➕ Add tasks (button & Enter key)
 - ❌ Delete tasks
 - ✅ Mark tasks as completed
